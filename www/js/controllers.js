@@ -33,12 +33,25 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'New Track 1', id: 1 },
-    { title: 'New Track 2', id: 2 },
-    { title: 'New Track 3', id: 3 }
+.controller('HomeCtrl', function($scope, $timeout) {
+  $scope.lastid = 5;
+  $scope.newTracks = [
+    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
+    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
+    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 },
+    { title: 'New Track 4', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 4 },
+    { title: 'New Track 5', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 5 }
   ];
+
+  $scope.loadMore = function(){
+    
+    $scope.lastid++;
+    $timeout(function() {
+      console.log("loading " + $scope.lastid);
+      $scope.newTracks.push({ title: 'New Track '+$scope.lastid, artist: 'Artist Name', image: 'http://placehold.it/75x75', id: $scope.lastid });
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    },500);
+  }
 })
 
 .controller('SearchCtrl', function($scope) {
