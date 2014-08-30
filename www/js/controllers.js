@@ -33,6 +33,34 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('HomeCtrl', function($scope) {
+  $scope.playlists = [
+    { title: 'New Track 1', id: 1 },
+    { title: 'New Track 2', id: 2 },
+    { title: 'New Track 3', id: 3 }
+  ];
+})
+
+.controller('SearchCtrl', function($scope) {
+  $scope.results = [
+    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
+    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
+    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
+  ];
+  $scope.getItemHeight = function(item, index) {
+    //Make evenly indexed items be 10px taller, for the sake of example
+    return (index % 2) === 0 ? 50 : 60;
+  };
+})
+
+.controller('FavoritesCtrl', function($scope) {
+  $scope.playlists = [
+    { title: 'Fave1', id: 1 },
+    { title: 'Fave2', id: 2 },
+    { title: 'Fave3', id: 3 }
+  ];
+})
+
 .controller('PlaylistsCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },

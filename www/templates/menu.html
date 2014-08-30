@@ -6,14 +6,14 @@
     </ion-nav-bar>
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     <div class="tabs tabs-icon-only">
-      <a class="tab-item">
+      <a nav-clear class="tab-item" ui-sref="app.home">
         <i class="icon ion-home"></i>
       </a>
-      <a class="tab-item">
-        <i class="icon ion-star"></i>
+      <a class="tab-item" nav-clear ui-sref="app.search">
+        <i class="icon ion-search"></i>
       </a>
-      <a class="tab-item">
-        <i class="icon ion-gear-a"></i>
+      <a class="tab-item" nav-clear ui-sref="app.favorites">
+        <i class="icon ion-happy"></i>
       </a>
     </div>
   </ion-pane>
@@ -26,9 +26,6 @@
       <ion-list>
         <ion-item nav-clear menu-close ng-click="login()">
           Login
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/search">
-          Search
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/browse">
           Browse
