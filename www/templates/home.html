@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header has-footer" >
     <ion-list>
-      <ion-item ng-repeat="newTrack in newTracks"
+      <ion-item ng-repeat="newTrack in scrollInfo.newTracks"
            href="#/app/playlists/{{newTrack.id}}"
            class="item ">
           <img ng-src="{{ newTrack.image }}">

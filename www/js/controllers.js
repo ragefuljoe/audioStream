@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -33,33 +33,26 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function($scope, $timeout) {
+.controller('HomeCtrl', function($scope, $timeout, getNewTracksService, startTracks) {
   
   // this needs to be mocked up as rest call and moved into service
-  $scope.scrollInfo ={};
-  $scope.scrollInfo.page = 1;
+  $scope.scrollInfo = {};
+  $scope.scrollInfo.page = 0;
   $scope.scrollInfo.limit = 5;
-
-  $scope.newTracks = [
-    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 1 },
-    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 2 },
-    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 3 },
-    { title: 'New Track 4', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 4 },
-    { title: 'New Track 5', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 5 }
-  ];
-
+  $scope.scrollInfo.newTracks = startTracks;
+  
+  
   $scope.loadMore = function(){
-    
-    $timeout(function() {
-      console.log("loading page" + $scope.scrollInfo.page);
-      var tId = $scope.scrollInfo.page * $scope.scrollInfo.limit;
-      for(var x=0; x < $scope.scrollInfo.limit; x++){
-        $scope.newTracks.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
+    $scope.scrollInfo.page++;
+    getNewTracksService.findNew($scope.scrollInfo).then(
+      function(fetchedTracks) {
+        fetchedTracks.forEach(function(track){
+          $scope.scrollInfo.newTracks.push(track);
+        });
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       }
-      $scope.scrollInfo.page++;
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-    },500);
-  }
+    );
+  };
 
 })
 
