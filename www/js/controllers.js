@@ -41,11 +41,11 @@ angular.module('starter.controllers', [])
   $scope.scrollInfo.limit = 5;
 
   $scope.newTracks = [
-    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
-    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
-    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 },
-    { title: 'New Track 4', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 4 },
-    { title: 'New Track 5', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 5 }
+    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 1 },
+    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 2 },
+    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 3 },
+    { title: 'New Track 4', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 4 },
+    { title: 'New Track 5', artist: 'Artist Name', image: 'http://placehold.it/285x175', id: 5 }
   ];
 
   $scope.loadMore = function(){
@@ -54,13 +54,13 @@ angular.module('starter.controllers', [])
       console.log("loading page" + $scope.scrollInfo.page);
       var tId = $scope.scrollInfo.page * $scope.scrollInfo.limit;
       for(var x=0; x < $scope.scrollInfo.limit; x++){
-        $scope.newTracks.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/75x75', id: tId });
+        $scope.newTracks.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
       }
       $scope.scrollInfo.page++;
       $scope.$broadcast('scroll.infiniteScrollComplete');
     },500);
   }
-  
+
 })
 
 .controller('SearchCtrl', function($scope) {

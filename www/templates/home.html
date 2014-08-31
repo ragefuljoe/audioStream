@@ -6,10 +6,10 @@
     <ion-list>
       <ion-item ng-repeat="newTrack in newTracks"
            href="#/app/playlists/{{newTrack.id}}"
-           class="item item-thumbnail-left">
+           class="item ">
           <img ng-src="{{ newTrack.image }}">
-          <h2>{{ newTrack.title }}</h2>
-          <h4>{{ newTrack.artist }}</h4>
+          <h2 class="newTrackTitle">{{ newTrack.title }}</h2>
+          <h4 class="newTrackArtist">{{ newTrack.artist }}</h4>
         </a>
       </ion-item>
     </ion-list>
