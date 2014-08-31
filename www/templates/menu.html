@@ -27,11 +27,12 @@
         <ion-item nav-clear menu-close ng-click="login()">
           Login
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
-          Browse
-        </ion-item>
-        <ion-item nav-clear menu-close href="#/app/playlists">
-          Playlists
+         <div class="item item-divider">
+          Categories
+        </div>
+
+        <ion-item ng-repeat="category in categories" nav-clear menu-close href="#/app/category/{{category}}">
+          {{category}}
         </ion-item>
       </ion-list>
     </ion-content>

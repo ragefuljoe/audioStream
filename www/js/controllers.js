@@ -1,6 +1,9 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, categories) {
+  
+  $scope.categories = categories;
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -31,6 +34,9 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.closeLogin();
     }, 1000);
   };
+
+
+
 })
 
 .controller('HomeCtrl', function($scope, $timeout, trackInfoService, startTracks) {
@@ -73,6 +79,16 @@ angular.module('starter.controllers', ['starter.services'])
     { title: 'Fave1', id: 1 },
     { title: 'Fave2', id: 2 },
     { title: 'Fave3', id: 3 }
+  ];
+})
+
+.controller('CategoryCtrl', function($scope, $stateParams) {
+
+  $scope.pageTitle = $stateParams.category;
+    $scope.results = [
+    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
+    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
+    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
   ];
 })
 

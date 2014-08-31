@@ -19,6 +19,48 @@ angular.module('starter.services', [])
 	    return deferred.promise;
 	} //end findNew
 
+	this.getCategories = function(param) {
+
+		var deferred = $q.defer();
+
+		$timeout(function() {
+	      var payload = [
+						'Alternative',
+						'Blues',
+						'Classical',
+						'Comedy',
+						'Country',
+						'Dance/Electronic',
+						'Decades',
+						'Dinner/Cooking',
+						'EDM Festivals',
+						'Easy Listening',
+						'Family',
+						'Hip Hop/Rap',
+						'Indian',
+						'Indie',
+						'Jazz',
+						'Latin',
+						'Love Songs',
+						'Metal',
+						'New Age',
+						'Oldies',
+						'Party',
+						'Pop',
+						'Puerto Rico',
+						'R&B/Soul/Funk',
+						'Reggae',
+						'Rock',
+						'Songwriters/Folk',
+						'Summer',
+						'Workout',
+						'World',
+						]
+	      deferred.resolve(payload);
+	    },700);
+
+	    return deferred.promise;
+	} //end findNew
 	
 	
 })
