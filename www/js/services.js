@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.service('getNewTracksService', function($q, $http, $timeout){
+.service('trackInfoService', function($q, $http, $timeout){
 
 	this.findNew = function(param) {
 
@@ -14,32 +14,20 @@ angular.module('starter.services', [])
 	        payload.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
 	      }
 	      deferred.resolve(payload);
-	    },1000);
+	    },700);
 
 	    return deferred.promise;
-	}
+	} //end findNew
 
-
-	// return {
-	// 	loadMore: function(page, limit){
- //    		var tempTracks = {};
- //    		tempTracks.info = [];
-
-	// 	      console.log("loading page" + page +" and limit "+limit);
-	// 	      var tId = page * limit;
-	// 	      for(var x=0; x < limit; x++){
-	// 	        tempTracks.info.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
-	// 	      }
-	// 		return tempTracks;
-	// 	}
-	// };
+	
 	
 })
+
 
 ;
 
 
-// reference
+// $http reference
 // angular.module('myApp.services', []).
 //     service('Activities', function($http, $q) {
 //         this.get = function(from, to){

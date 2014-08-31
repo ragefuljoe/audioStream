@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('HomeCtrl', function($scope, $timeout, getNewTracksService, startTracks) {
+.controller('HomeCtrl', function($scope, $timeout, trackInfoService, startTracks) {
   
   // this needs to be mocked up as rest call and moved into service
   $scope.scrollInfo = {};
@@ -44,7 +44,7 @@ angular.module('starter.controllers', ['starter.services'])
   
   $scope.loadMore = function(){
     $scope.scrollInfo.page++;
-    getNewTracksService.findNew($scope.scrollInfo).then(
+    trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
         fetchedTracks.forEach(function(track){
           $scope.scrollInfo.newTracks.push(track);

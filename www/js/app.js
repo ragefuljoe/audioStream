@@ -39,8 +39,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       },
       resolve:{
-        startTracks: function(getNewTracksService){
-          return getNewTracksService.findNew({page:0,limit:5});
+        startTracks: function(trackInfoService){
+          return trackInfoService.findNew({page:0,limit:5});
         }
       }
     })
