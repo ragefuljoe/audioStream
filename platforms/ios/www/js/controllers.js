@@ -34,12 +34,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('HomeCtrl', function($scope, $timeout) {
-  
-  // this needs to be mocked up as rest call and moved into service
-  $scope.scrollInfo ={};
-  $scope.scrollInfo.page = 1;
-  $scope.scrollInfo.limit = 5;
-
+  $scope.lastid = 5;
   $scope.newTracks = [
     { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
     { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
@@ -50,17 +45,13 @@ angular.module('starter.controllers', [])
 
   $scope.loadMore = function(){
     
+    $scope.lastid++;
     $timeout(function() {
-      console.log("loading page" + $scope.scrollInfo.page);
-      var tId = $scope.scrollInfo.page * $scope.scrollInfo.limit;
-      for(var x=0; x < $scope.scrollInfo.limit; x++){
-        $scope.newTracks.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/75x75', id: tId });
-      }
-      $scope.scrollInfo.page++;
+      console.log("loading " + $scope.lastid);
+      $scope.newTracks.push({ title: 'New Track '+$scope.lastid, artist: 'Artist Name', image: 'http://placehold.it/75x75', id: $scope.lastid });
       $scope.$broadcast('scroll.infiniteScrollComplete');
     },500);
   }
-  
 })
 
 .controller('SearchCtrl', function($scope) {
