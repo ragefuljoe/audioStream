@@ -1,12 +1,18 @@
-<ion-view title="Home">
+<ion-view title="Newly Added">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
+  <ion-content class="has-header has-footer" >
     <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
+      <ion-item ng-repeat="newTrack in scrollInfo.newTracks"
+           href="#/app/playlists/{{newTrack.id}}"
+           class="item ">
+          <img ng-src="{{ newTrack.image }}">
+          <h2 class="newTrackTitle">{{ newTrack.title }}</h2>
+          <h4 class="newTrackArtist">{{ newTrack.artist }}</h4>
+        </a>
       </ion-item>
     </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()" icon="ion-loading-c"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

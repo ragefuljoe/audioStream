@@ -1,1 +1,11 @@
 /* Empty. Add your own CSS if you like */
+.newTrackTitle{
+	position: absolute;
+	bottom:55px;
+	left:30px;
+}
+.newTrackArtist{
+	position: absolute;
+	bottom:40px;
+	left:30px;
+}

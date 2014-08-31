@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -33,12 +33,27 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'New Track 1', id: 1 },
-    { title: 'New Track 2', id: 2 },
-    { title: 'New Track 3', id: 3 }
-  ];
+.controller('HomeCtrl', function($scope, $timeout, trackInfoService, startTracks) {
+  
+  // this needs to be mocked up as rest call and moved into service
+  $scope.scrollInfo = {};
+  $scope.scrollInfo.page = 0;
+  $scope.scrollInfo.limit = 5;
+  $scope.scrollInfo.newTracks = startTracks;
+  
+  
+  $scope.loadMore = function(){
+    $scope.scrollInfo.page++;
+    trackInfoService.findNew($scope.scrollInfo).then(
+      function(fetchedTracks) {
+        fetchedTracks.forEach(function(track){
+          $scope.scrollInfo.newTracks.push(track);
+        });
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }
+    );
+  };
+
 })
 
 .controller('SearchCtrl', function($scope) {
