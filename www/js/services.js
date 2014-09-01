@@ -65,7 +65,7 @@ angular.module('starter.services', [])
 	this.getTrackData = function(trackID) {
 		var deferred = $q.defer();
 		$timeout(function() {
-			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'http://upload.wikimedia.org/wikipedia/en/0/0c/Wiz_Khalifa_-_Black_and_Yellow.ogg' };
+			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'https://archive.org/download/SteveAoki/KidCudi-PursuitOfHappinessSteveAokiRemix.ogg', type: 'audio/ogg' };
 			deferred.resolve(payload);
 		}, 700);
 		return deferred.promise;

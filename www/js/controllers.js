@@ -93,10 +93,11 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 .controller('PlayerCtrl', function(  $scope, $stateParams, $ionicLoading, trackInfoService) {
-
+    
   $ionicLoading.show({
     template: '<i class="icon ion-loading-c"></i> Loading...'
   });
+
   $scope.currTrack = {};
 
     //call service to get track data from id
@@ -107,19 +108,26 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.trackData = fetchedTrack;
       $scope.pageTitle = $scope.trackData.title;
 
-      $scope.playlist1[0] = {src:$scope.trackData.url, type:'audio/ogg'};
+      $scope.playlist1[0] = {src:$scope.trackData.url, type:$scope.trackData.type};
       $ionicLoading.hide();
       console.log($scope.playlist1);
     }
   );
   
   $scope.currTrack.isPlaying = false;
-
+  $scope.seekPercentage = function ($event) {
+        var percentage = ($event.offsetX / $event.target.offsetWidth);
+        if (percentage <= 1) {
+          return percentage;
+        } else {
+          return 0;
+        }
+      };
   $scope.currTrack.playerControl = function(){
 
     $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
     $scope.audio1.playPause();
-    
+
     $scope.$watch('audio1.ended',function(){
       if($scope.audio1.ended){
         console.log("ended do something");

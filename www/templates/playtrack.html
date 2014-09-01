@@ -1,6 +1,6 @@
 <ion-view title="{{pageTitle}}">
 	<audio media-player="audio1" data-playlist="playlist1">
-		<source src="" type="audio/ogg">
+		<source>
 	</audio>
   <ion-content scroll="false" class="has-header has-footer" >
 	  <div class="playercontent" ng-show="pageTitle">
@@ -21,7 +21,7 @@
 		  <div class="col">
 			<div class="progress" ng-click="audio1.seek(audio1.duration * seekPercentage($event))">
 		    	<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: ((audio1.currentTime+0.0001)*100/audio1.duration) + '%' }"></div>
-
+		    	<div class="load-bar" role="loadbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audio1.loadPercent + '%' }"></div>
 		    	<div class="time" ng-show="audio1.formatTime">
 		      		<span>{{audio1.formatTime}}</span><b>/</b><span >{{audio1.formatDuration}}</span>
 			    </div>

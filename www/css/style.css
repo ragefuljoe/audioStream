@@ -55,5 +55,12 @@
 }
 .progress-bar{
     height:2px;
-    background-color: #254f1f;
+    background-color: #45853a;
+}
+.load-bar{
+    height:2px;
+    background-color: #b3b3b3;
+}
+.time{
+    text-align: right;
 }
