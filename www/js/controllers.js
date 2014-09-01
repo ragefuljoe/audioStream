@@ -33,13 +33,13 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('HomeCtrl', function($scope, $timeout, trackInfoService, startTracks) {
+.controller('HomeCtrl', function($scope, $timeout, trackInfoService) {
   
   // this needs to be mocked up as rest call and moved into service
   $scope.scrollInfo = {};
   $scope.scrollInfo.page = 0;
   $scope.scrollInfo.limit = 5;
-  $scope.scrollInfo.newTracks = startTracks;
+  $scope.scrollInfo.newTracks = [];
   
   
   $scope.loadMore = function(){

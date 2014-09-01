@@ -37,12 +37,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           templateUrl: "templates/home.html",
           controller: 'HomeCtrl'
         }
-      },
-      resolve:{
-        startTracks: function(trackInfoService){
-          return trackInfoService.findNew({page:0,limit:5});
-        }
-      }
+      }//,
+      // resolve:{
+      //   startTracks: function(trackInfoService){
+      //     return trackInfoService.findNew({page:0,limit:5});
+      //   }
+      // }
     })
 
     .state('app.search', {
