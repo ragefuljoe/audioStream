@@ -1,5 +1,7 @@
 <ion-view title="{{pageTitle}}">
-
+	<audio media-player="audio1" data-playlist="playlist1">
+		<source src="" type="audio/ogg">
+	</audio>
   <ion-content scroll="false" class="has-header has-footer" >
 	  <div class="playercontent" ng-show="pageTitle">
 		<div class="row trackinfo">
@@ -14,14 +16,25 @@
 			  </div>
 			</div>
 		</div>
-<!-- 
-		<audio media-player="audio1" data-playlist="playlist1">
 
-			<source src="http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg" type="audio/ogg">
-		</audio> -->
+		<div class="row">
+		  <div class="col">
+			<div class="progress" ng-click="audio1.seek(audio1.duration * seekPercentage($event))">
+		    	<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: ((audio1.currentTime+0.0001)*100/audio1.duration) + '%' }"></div>
+
+		    	<div class="time" ng-show="audio1.formatTime">
+		      		<span>{{audio1.formatTime}}</span><b>/</b><span >{{audio1.formatDuration}}</span>
+			    </div>
+		  	</div>
+  	      </div>
+		</div>
+
+
  <!--  <span ng-show="audio1.playing">Player status: Playing</span>
   <span ng-show="!audio1.playing">Player status: Paused</span> -->
-<audio id="player"></audio>
+
+<!-- <audio id="player"></audio> -->
+
 		<div class="row playercontrols">
 
 			<div class="col col-offset-33">

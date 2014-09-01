@@ -92,52 +92,40 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('PlayerCtrl', function( $window, $scope, $stateParams, $ionicLoading, trackInfoService, $ionicScrollDelegate) {
+.controller('PlayerCtrl', function(  $scope, $stateParams, $ionicLoading, trackInfoService) {
+
   $ionicLoading.show({
     template: '<i class="icon ion-loading-c"></i> Loading...'
   });
-  
+  $scope.currTrack = {};
+
     //call service to get track data from id
   trackInfoService.getTrackData($stateParams.trackid).then(
     function(fetchedTrack){
+
       console.log(fetchedTrack);
       $scope.trackData = fetchedTrack;
       $scope.pageTitle = $scope.trackData.title;
+
+      $scope.playlist1[0] = {src:$scope.trackData.url, type:'audio/ogg'};
       $ionicLoading.hide();
+      console.log($scope.playlist1);
     }
   );
   
-  $scope.currTrack ={};
-
   $scope.currTrack.isPlaying = false;
-  
-  var audio = $window.document.getElementById('player');
-  
-  var setPlayer = function () {
-    // console.log(queue[currentSongIdx]);
-    // $scope.ArtistImage = queue[currentSongIdx].thumb_url_artist;
-    // $scope.ArtistName = queue[currentSongIdx].artist;
-    // $scope.SongName = queue[currentSongIdx].title;
-    // $scope.Cover = queue[currentSongIdx].thumb_url_large;
-    audio.src = $scope.trackData.url;
-  };
 
   $scope.currTrack.playerControl = function(){
+
+    $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
+    $scope.audio1.playPause();
     
-    if (!$scope.currTrack.isPlaying) {
-      if (audio.getAttribute('src') === null) {
-        setPlayer();
+    $scope.$watch('audio1.ended',function(){
+      if($scope.audio1.ended){
+        console.log("ended do something");
+         $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
       }
-      audio.play();
-      $scope.currTrack.isPlaying = true;
-    } else {
-      audio.pause();
-      $scope.currTrack.isPlaying = false;
-    }
-
-
-    // $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
-    // $scope.playPause();
+    });
   }
 
   $scope.currTrack.addFavorite = function(){

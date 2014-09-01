@@ -53,3 +53,7 @@
 	text-align: center;
 	/*border: 1px solid black;*/
 }
+.progress-bar{
+    height:2px;
+    background-color: #254f1f;
+}

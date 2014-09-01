@@ -20,7 +20,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','m
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+
+  $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?upload.wikimedia\.org/.+$')]);
+
   $stateProvider
 
     .state('app', {
