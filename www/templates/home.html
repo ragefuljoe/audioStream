@@ -6,7 +6,7 @@
     <!-- <div class="ion-loading-c" ng-hide="scrollInfo.newTracks.length"></div> -->
     <ion-list>
       <ion-item ng-repeat="newTrack in scrollInfo.newTracks"
-           href="#/app/playlists/{{newTrack.id}}"
+           href="#/app/track/{{newTrack.id}}"
            class="item ">
           <img ng-src="{{ newTrack.image }}">
           <h2 class="newTrackTitle">{{ newTrack.title }}</h2>

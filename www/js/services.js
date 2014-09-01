@@ -60,8 +60,16 @@ angular.module('starter.services', [])
 	    },700);
 
 	    return deferred.promise;
-	} //end findNew
+	} //end getCategories
 	
+	this.getTrackData = function(trackID) {
+		var deferred = $q.defer();
+		$timeout(function() {
+			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'http://mydomain.com/track/2f882893' };
+			deferred.resolve(payload);
+		}, 700);
+		return deferred.promise;
+	}
 	
 })
 

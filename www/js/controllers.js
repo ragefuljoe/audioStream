@@ -49,12 +49,12 @@ angular.module('starter.controllers', ['starter.services'])
   
   
   $scope.loadMore = function(){
-    $scope.scrollInfo.page++;
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
         fetchedTracks.forEach(function(track){
           $scope.scrollInfo.newTracks.push(track);
         });
+        $scope.scrollInfo.page++;
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     );
@@ -90,6 +90,33 @@ angular.module('starter.controllers', ['starter.services'])
     { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
     { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
   ];
+})
+
+.controller('PlayerCtrl', function($scope, $stateParams, $ionicLoading, trackInfoService) {
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-c"></i> Loading...'
+  });
+
+  $scope.currTrack ={};
+  $scope.currTrack.isPlaying = false;
+  $scope.currTrack.playerControl = function(){
+    $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
+  }
+  $scope.currTrack.addFavorite = function(){
+    console.log("add favorite");
+  }
+
+  
+  //call service to get track data from id
+  trackInfoService.getTrackData($stateParams.trackid).then(
+    function(fetchedTrack){
+      console.log(fetchedTrack);
+      $scope.trackData = fetchedTrack;
+      $scope.pageTitle = $scope.trackData.title;
+      $ionicLoading.hide();
+    }
+  );
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {

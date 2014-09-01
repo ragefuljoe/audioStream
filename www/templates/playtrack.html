@@ -1,0 +1,28 @@
+<ion-view title="{{pageTitle}}">
+
+  <ion-content class="has-header">
+	  <div class="playercontent" ng-show="pageTitle">
+		<div class="row trackinfo">
+			<div class="list card">
+
+			  <div class="item item-image">
+			    <img ng-src="{{ trackData.image }}">
+			  </div>
+			  <div class="item">
+			  	  <h2>{{ trackData.title }}</h2>
+			    <p>{{ trackData.artist }}</p>
+			  </div>
+			</div>
+		</div>
+		<div class="row playercontrols">
+			<div class="col col-offset-33">
+				<i class="icon ion-pause" ng-click="currTrack.playerControl()" ng-show="currTrack.isPlaying"></i>
+			    <i class="icon ion-play" ng-click="currTrack.playerControl()" ng-hide="currTrack.isPlaying"></i>
+			</div>
+	  		<div class="col">
+	  			<i class="icon ion-heart" ng-click="currTrack.addFavorite()"></i>
+	  		</div>
+		</div>
+	  </div>
+  </ion-content>
+</ion-view>

@@ -89,6 +89,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })    
 
+    .state('app.track', {
+      url: "/track/:trackid",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/playtrack.html",
+          controller: 'PlayerCtrl'
+        }
+      }
+    })
+
     .state('app.playlists', {
       url: "/playlists",
       views: {

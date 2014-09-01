@@ -9,3 +9,23 @@
 	bottom:40px;
 	left:30px;
 }
+
+.playercontent{
+	/*display: flex;
+	flex-direction: column;
+  	align-items: center;
+    justify-content: center;*/
+	border:1px dotted #b2b2b2;
+}
+.trackinfo{
+	/*align-self: flex-start;*/
+}
+.playercontrols{
+	font-size: 30px;
+	color:#404040;
+	/*align-self: flex-end;*/
+}
+.playercontrols .col{
+	text-align: center;
+	/*border: 1px solid black;*/
+}
