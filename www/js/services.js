@@ -65,7 +65,7 @@ angular.module('starter.services', [])
 	this.getTrackData = function(trackID) {
 		var deferred = $q.defer();
 		$timeout(function() {
-			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'http://mydomain.com/track/2f882893' };
+			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg' };
 			deferred.resolve(payload);
 		}, 700);
 		return deferred.promise;

@@ -1,6 +1,6 @@
 <ion-view title="{{pageTitle}}">
 
-  <ion-content class="has-header">
+  <ion-content scroll="false" class="has-header has-footer" >
 	  <div class="playercontent" ng-show="pageTitle">
 		<div class="row trackinfo">
 			<div class="list card">
@@ -14,7 +14,16 @@
 			  </div>
 			</div>
 		</div>
+<!-- 
+		<audio media-player="audio1" data-playlist="playlist1">
+
+			<source src="http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg" type="audio/ogg">
+		</audio> -->
+ <!--  <span ng-show="audio1.playing">Player status: Playing</span>
+  <span ng-show="!audio1.playing">Player status: Paused</span> -->
+<audio id="player"></audio>
 		<div class="row playercontrols">
+
 			<div class="col col-offset-33">
 				<i class="icon ion-pause" ng-click="currTrack.playerControl()" ng-show="currTrack.isPlaying"></i>
 			    <i class="icon ion-play" ng-click="currTrack.playerControl()" ng-hide="currTrack.isPlaying"></i>

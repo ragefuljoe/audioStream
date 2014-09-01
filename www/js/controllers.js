@@ -92,22 +92,12 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('PlayerCtrl', function($scope, $stateParams, $ionicLoading, trackInfoService) {
+.controller('PlayerCtrl', function( $window, $scope, $stateParams, $ionicLoading, trackInfoService, $ionicScrollDelegate) {
   $ionicLoading.show({
     template: '<i class="icon ion-loading-c"></i> Loading...'
   });
-
-  $scope.currTrack ={};
-  $scope.currTrack.isPlaying = false;
-  $scope.currTrack.playerControl = function(){
-    $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
-  }
-  $scope.currTrack.addFavorite = function(){
-    console.log("add favorite");
-  }
-
   
-  //call service to get track data from id
+    //call service to get track data from id
   trackInfoService.getTrackData($stateParams.trackid).then(
     function(fetchedTrack){
       console.log(fetchedTrack);
@@ -116,6 +106,46 @@ angular.module('starter.controllers', ['starter.services'])
       $ionicLoading.hide();
     }
   );
+  
+  $scope.currTrack ={};
+
+  $scope.currTrack.isPlaying = false;
+  
+  var audio = $window.document.getElementById('player');
+  
+  var setPlayer = function () {
+    // console.log(queue[currentSongIdx]);
+    // $scope.ArtistImage = queue[currentSongIdx].thumb_url_artist;
+    // $scope.ArtistName = queue[currentSongIdx].artist;
+    // $scope.SongName = queue[currentSongIdx].title;
+    // $scope.Cover = queue[currentSongIdx].thumb_url_large;
+    audio.src = $scope.trackData.url;
+  };
+
+  $scope.currTrack.playerControl = function(){
+    
+    if (!$scope.currTrack.isPlaying) {
+      if (audio.getAttribute('src') === null) {
+        setPlayer();
+      }
+      audio.play();
+      $scope.currTrack.isPlaying = true;
+    } else {
+      audio.pause();
+      $scope.currTrack.isPlaying = false;
+    }
+
+
+    // $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
+    // $scope.playPause();
+  }
+
+  $scope.currTrack.addFavorite = function(){
+    console.log("add favorite");
+  }
+
+  
+
 
 })
 
