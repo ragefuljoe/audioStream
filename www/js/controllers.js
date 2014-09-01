@@ -99,6 +99,7 @@ angular.module('starter.controllers', ['starter.services'])
   });
 
   $scope.currTrack = {};
+  $scope.currTrack.isPlaying = false;
 
     //call service to get track data from id
   trackInfoService.getTrackData($stateParams.trackid).then(
@@ -110,19 +111,21 @@ angular.module('starter.controllers', ['starter.services'])
 
       $scope.playlist1[0] = {src:$scope.trackData.url, type:$scope.trackData.type};
       $ionicLoading.hide();
-      console.log($scope.playlist1);
+      // console.log($scope.playlist1);
     }
   );
   
-  $scope.currTrack.isPlaying = false;
+  
+
   $scope.seekPercentage = function ($event) {
-        var percentage = ($event.offsetX / $event.target.offsetWidth);
-        if (percentage <= 1) {
-          return percentage;
-        } else {
-          return 0;
-        }
-      };
+    var percentage = ($event.offsetX / $event.target.offsetWidth);
+    if (percentage <= 1) {
+      return percentage;
+    } else {
+      return 0;
+    }
+  };
+  
   $scope.currTrack.playerControl = function(){
 
     $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
