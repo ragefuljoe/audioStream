@@ -27,7 +27,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: "/app",
       abstract: true,
       templateUrl: "templates/menu.html",
-      controller: 'AppCtrl'
+      controller: 'AppCtrl',
+      resolve:{
+        categories: function(trackInfoService){
+          return trackInfoService.getCategories();
+        }
+      }
     })
 
     .state('app.home', {
@@ -73,6 +78,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+
+    .state('app.category', {
+      url: "/category/:category",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/category.html",
+          controller: 'CategoryCtrl'
+        }
+      }
+    })    
+
     .state('app.playlists', {
       url: "/playlists",
       views: {
