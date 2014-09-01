@@ -60,8 +60,16 @@ angular.module('starter.services', [])
 	    },700);
 
 	    return deferred.promise;
-	} //end findNew
+	} //end getCategories
 	
+	this.getTrackData = function(trackID) {
+		var deferred = $q.defer();
+		$timeout(function() {
+			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'https://archive.org/download/SteveAoki/KidCudi-PursuitOfHappinessSteveAokiRemix.ogg', type: 'audio/ogg' };
+			deferred.resolve(payload);
+		}, 700);
+		return deferred.promise;
+	}
 	
 })
 

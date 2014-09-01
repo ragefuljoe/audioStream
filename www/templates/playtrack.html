@@ -1,0 +1,50 @@
+<ion-view title="{{pageTitle}}">
+	<audio media-player="audio1" data-playlist="playlist1">
+		<source>
+	</audio>
+  <ion-content scroll="false" class="has-header has-footer" >
+	  <div class="playercontent" ng-show="pageTitle">
+		<div class="row trackinfo">
+			<div class="list card">
+
+			  <div class="item item-image">
+			    <img ng-src="{{ trackData.image }}">
+			  </div>
+			  <div class="item">
+			  	  <h2>{{ trackData.title }}</h2>
+			    <p>{{ trackData.artist }}</p>
+			  </div>
+			</div>
+		</div>
+
+		<div class="row">
+		  <div class="col">
+			<div class="progress" ng-click="audio1.seek(audio1.duration * seekPercentage($event))">
+		    	<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: ((audio1.currentTime+0.0001)*100/audio1.duration) + '%' }"></div>
+		    	<div class="load-bar" role="loadbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audio1.loadPercent + '%' }"></div>
+		    	<div class="time" ng-show="audio1.formatTime">
+		      		<span>{{audio1.formatTime}}</span><b>/</b><span >{{audio1.formatDuration}}</span>
+			    </div>
+		  	</div>
+  	      </div>
+		</div>
+
+
+ <!--  <span ng-show="audio1.playing">Player status: Playing</span>
+  <span ng-show="!audio1.playing">Player status: Paused</span> -->
+
+<!-- <audio id="player"></audio> -->
+
+		<div class="row playercontrols">
+
+			<div class="col col-offset-33">
+				<i class="icon ion-pause" ng-click="currTrack.playerControl()" ng-show="currTrack.isPlaying"></i>
+			    <i class="icon ion-play" ng-click="currTrack.playerControl()" ng-hide="currTrack.isPlaying"></i>
+			</div>
+	  		<div class="col">
+	  			<i class="icon ion-heart" ng-click="currTrack.addFavorite()"></i>
+	  		</div>
+		</div>
+	  </div>
+  </ion-content>
+</ion-view>

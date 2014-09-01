@@ -49,12 +49,12 @@ angular.module('starter.controllers', ['starter.services'])
   
   
   $scope.loadMore = function(){
-    $scope.scrollInfo.page++;
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
         fetchedTracks.forEach(function(track){
           $scope.scrollInfo.newTracks.push(track);
         });
+        $scope.scrollInfo.page++;
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     );
@@ -90,6 +90,62 @@ angular.module('starter.controllers', ['starter.services'])
     { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
     { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
   ];
+})
+
+.controller('PlayerCtrl', function(  $scope, $stateParams, $ionicLoading, trackInfoService) {
+    
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-c"></i> Loading...'
+  });
+
+  $scope.currTrack = {};
+  $scope.currTrack.isPlaying = false;
+
+    //call service to get track data from id
+  trackInfoService.getTrackData($stateParams.trackid).then(
+    function(fetchedTrack){
+
+      console.log(fetchedTrack);
+      $scope.trackData = fetchedTrack;
+      $scope.pageTitle = $scope.trackData.title;
+
+      $scope.playlist1[0] = {src:$scope.trackData.url, type:$scope.trackData.type};
+      $ionicLoading.hide();
+      // console.log($scope.playlist1);
+    }
+  );
+  
+  
+
+  $scope.seekPercentage = function ($event) {
+    var percentage = ($event.offsetX / $event.target.offsetWidth);
+    if (percentage <= 1) {
+      return percentage;
+    } else {
+      return 0;
+    }
+  };
+  
+  $scope.currTrack.playerControl = function(){
+
+    $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
+    $scope.audio1.playPause();
+
+    $scope.$watch('audio1.ended',function(){
+      if($scope.audio1.ended){
+        console.log("ended do something");
+         $scope.currTrack.isPlaying = !$scope.currTrack.isPlaying;
+      }
+    });
+  }
+
+  $scope.currTrack.addFavorite = function(){
+    console.log("add favorite");
+  }
+
+  
+
+
 })
 
 .controller('PlaylistsCtrl', function($scope) {
