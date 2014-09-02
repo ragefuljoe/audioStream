@@ -31,8 +31,8 @@
           Categories
         </div>
 
-        <ion-item ng-repeat="category in categories" nav-clear menu-close href="#/app/category/{{category}}">
-          {{category}}
+        <ion-item ng-repeat="category in categories" nav-clear menu-close href="#/app/category/{{category.id}}">
+          {{category.name}}
         </ion-item>
       </ion-list>
     </ion-content>

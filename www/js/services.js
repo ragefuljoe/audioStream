@@ -1,6 +1,8 @@
 angular.module('starter.services', [])
 
 .service('trackInfoService', function($q, $http, $timeout){
+	
+	var urlBase = 'http://localhost:1337/api/v1'
 
 	this.findNew = function(param) {
 
@@ -19,16 +21,24 @@ angular.module('starter.services', [])
 	    return deferred.promise;
 	} //end findNew
 
+	this.getCategoryTracks = function(param){
+		var deferred = $q.defer();
+		$http.get(urlBase + '/category/' + param)
+			.success(function(data) {
+				deferred.resolve(data);
+			});
+		return deferred.promise;
+	}
+
 	this.getCategories = function(param) {
 
-		var urlBase = 'http://localhost:1337/api/v1'
+		
 
 		var deferred = $q.defer();
 
 
 		$http.get(urlBase + '/category')
 			.success(function(data) {
-				console.log("s",data);
 				deferred.resolve(data);
 			});
 

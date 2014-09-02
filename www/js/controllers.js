@@ -2,9 +2,8 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, categories) {
   
-  $scope.categories = [];
+  $scope.categories = categories;
 
-  console.log(categories);
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -100,14 +99,21 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('CategoryCtrl', function($scope, $stateParams) {
+.controller('CategoryCtrl', function($scope, $stateParams, $ionicLoading, trackInfoService) {
 
-  $scope.pageTitle = $stateParams.category;
-    $scope.results = [
-    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
-    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
-    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
-  ];
+  $ionicLoading.show({
+    template: '<i class="icon ion-loading-c"></i> Loading...'
+  });
+
+  trackInfoService.getCategoryTracks($stateParams.category).then(
+    function(categoryTracks){
+      console.log(categoryTracks);
+      $scope.pageTitle = categoryTracks.name;
+      $scope.results = categoryTracks.tracks;
+      $ionicLoading.hide();
+    }
+  );
+
 })
 
 .controller('PlayerCtrl', function(  $scope, $stateParams, $ionicLoading, trackInfoService) {
