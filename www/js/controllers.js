@@ -47,7 +47,15 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.scrollInfo.limit = 5;
   $scope.scrollInfo.newTracks = [];
   
-  
+  $scope.doRefresh = function(){
+    $scope.scrollInfo = {};
+    $scope.scrollInfo.page = 0;
+    $scope.scrollInfo.limit = 5;
+    $scope.scrollInfo.newTracks = [];
+    $scope.loadMore();
+
+  };
+
   $scope.loadMore = function(){
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
@@ -56,10 +64,18 @@ angular.module('starter.controllers', ['starter.services'])
         });
         $scope.scrollInfo.page++;
         $scope.$broadcast('scroll.infiniteScrollComplete');
+        $scope.$broadcast('scroll.refreshComplete');
       }
     );
   };
 
+  $scope.moreDataCanBeLoaded = function(){
+    if($scope.scrollInfo.page > 5){
+      return false;
+    }else{
+      return true;
+    }
+  };
 })
 
 .controller('SearchCtrl', function($scope) {
