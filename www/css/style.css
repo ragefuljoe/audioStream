@@ -1,4 +1,10 @@
 /* Empty. Add your own CSS if you like */
+.tabs{
+    background-color:#303030;
+}
+.tab-item {
+    color:white;
+}
 .newTrackTitle{
 	position: absolute;
 	bottom:55px;
