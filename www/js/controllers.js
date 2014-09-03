@@ -116,7 +116,6 @@ var WTF = false;
   $scope.searchData.results = [];
 
   $scope.clearInput = function(){
-    $log.log("WTF");
     $scope.searchData.searchTerm = "";
   };
   $scope.runSearch = function(){
