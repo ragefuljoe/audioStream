@@ -115,6 +115,24 @@ angular.module('starter.services', [])
 
 		return deferred.promise;
 	}
+
+
+	this.findTracks = function(searchData){
+
+		var deferred = $q.defer();
+
+		var query = { where: {title: '1400'} };
+		
+		$http.get(urlBase + '/track', {params: query})
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+		return deferred.promise;
+	}
+
 	
 })
 
