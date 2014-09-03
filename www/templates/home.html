@@ -12,12 +12,12 @@
       <ion-item ng-repeat="newTrack in scrollInfo.newTracks"
            href="#/app/track/{{newTrack.id}}"
            class="item ">
-          <img ng-src="{{ newTrack.image }}">
+          <img ng-src="{{ newTrack.img_url }}">
           <h2 class="newTrackTitle">{{ newTrack.title }}</h2>
-          <h4 class="newTrackArtist">{{ newTrack.artist }}</h4>
-        </a>
+          <h4 class="newTrackArtist">{{ newTrack.artist.artistname }}</h4>
+        
       </ion-item>
     </ion-list>
-    <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" icon="ion-loading-c"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="loadMore()" ng-if="showInfinite && moreDataCanBeLoaded()" icon="ion-loading-c" distance="1%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

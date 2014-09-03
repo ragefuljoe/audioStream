@@ -2,21 +2,29 @@ angular.module('starter.services', [])
 
 .service('trackInfoService', function($q, $http, $log, $timeout){
 	
-	var urlBase = 'http://localhost:1337/api/v1'
+	var urlBase = 'http://localhost:1337/api/v1';
 
 	this.findNew = function(param) {
 
 		var deferred = $q.defer();
-		console.log(param);
+		// console.log(param);
 
-		$timeout(function() {
-	      var tId = param.page * param.limit;
-	      var payload = [];
-	      for(var x=0; x < param.limit; x++){
-	        payload.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
-	      }
-	      deferred.resolve(payload);
-	    },700);
+		// $timeout(function() {
+	 //      var tId = param.page * param.limit;
+	 //      var payload = [];
+	 //      for(var x=0; x < param.limit; x++){
+	 //        payload.push({ title: 'New Track '+ ++tId, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: tId });
+	 //      }
+	 //      deferred.resolve(payload);
+	 //    },700);
+		
+		$http.get(urlBase + '/track' )
+			.success(function(data) {
+				deferred.resolve(data);
+			}).error(function(msg, code) {
+	          deferred.reject(msg);
+	          $log.error(msg, code);
+	       });
 
 	    return deferred.promise;
 	} //end findNew

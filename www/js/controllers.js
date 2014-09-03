@@ -55,9 +55,9 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('HomeCtrl', function($scope, $timeout, trackInfoService) {
-  
-  // this needs to be mocked up as rest call and moved into service
+.controller('HomeCtrl', function($scope, $timeout, $log, trackInfoService) {
+
+  $scope.showInfinite = false;
   $scope.scrollInfo = {};
   $scope.scrollInfo.page = 0;
   $scope.scrollInfo.limit = 5;
@@ -69,24 +69,32 @@ angular.module('starter.controllers', ['starter.services'])
     $scope.scrollInfo.limit = 5;
     $scope.scrollInfo.newTracks = [];
     $scope.loadMore();
-
+    $scope.$broadcast('scroll.refreshComplete');
   };
 
   $scope.loadMore = function(){
+  
+    console.log($scope.scrollInfo.page);
+
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
+        $log.log(fetchedTracks);
         fetchedTracks.forEach(function(track){
+          // $log.log(track);
           $scope.scrollInfo.newTracks.push(track);
         });
-        $scope.scrollInfo.page++;
+        // $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.$broadcast('scroll.refreshComplete');
+        $scope.scrollInfo.page++;
+        $scope.showInfinite = true;
       }
     );
   };
 
+  $scope.loadMore();
+
   $scope.moreDataCanBeLoaded = function(){
-    if($scope.scrollInfo.page > 5){
+    if($scope.scrollInfo.page > 5 ){
       return false;
     }else{
       return true;
