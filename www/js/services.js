@@ -7,7 +7,7 @@ angular.module('starter.services', [])
 	this.findNew = function(param) {
 
 		var deferred = $q.defer();
-		// console.log(param);
+		console.log(param);
 
 		// $timeout(function() {
 	 //      var tId = param.page * param.limit;
@@ -18,7 +18,7 @@ angular.module('starter.services', [])
 	 //      deferred.resolve(payload);
 	 //    },700);
 		
-		$http.get(urlBase + '/track' )
+		$http.get(urlBase + '/track', {params: {limit: param.limit, skip: param.page*param.limit, sort:'createdAt DESC'} } )
 			.success(function(data) {
 				deferred.resolve(data);
 			}).error(function(msg, code) {
@@ -98,10 +98,21 @@ angular.module('starter.services', [])
 	
 	this.getTrackData = function(trackID) {
 		var deferred = $q.defer();
-		$timeout(function() {
-			var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'https://archive.org/download/SteveAoki/KidCudi-PursuitOfHappinessSteveAokiRemix.mp3', type: 'audio/mp3' };
-			deferred.resolve(payload);
-		}, 700);
+
+		$http.get(urlBase + '/track/' + trackID)
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+
+
+		// $timeout(function() {
+		// 	var payload = { title: 'Fetched Track '+ trackID, artist: 'Artist Name', image: 'http://placehold.it/285x175', id: trackID, url: 'https://archive.org/download/SteveAoki/KidCudi-PursuitOfHappinessSteveAokiRemix.mp3', type: 'audio/mp3' };
+		// 	deferred.resolve(payload);
+		// }, 700);
+
 		return deferred.promise;
 	}
 	

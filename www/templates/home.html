@@ -18,6 +18,6 @@
         
       </ion-item>
     </ion-list>
-    <ion-infinite-scroll on-infinite="loadMore()" ng-if="showInfinite && moreDataCanBeLoaded()" icon="ion-loading-c" distance="1%"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreDataCanBeLoaded()" icon="ion-loading-c" distance="1%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

@@ -51,34 +51,41 @@ angular.module('starter.controllers', ['starter.services'])
     }, 1000);
   };
 
-
-
 })
 
 .controller('HomeCtrl', function($scope, $timeout, $log, trackInfoService) {
-
-  $scope.showInfinite = false;
+var WTF = false;
+  // $scope.showInfinite = false;
   $scope.scrollInfo = {};
   $scope.scrollInfo.page = 0;
-  $scope.scrollInfo.limit = 5;
+  $scope.scrollInfo.limit = 3;
   $scope.scrollInfo.newTracks = [];
+  $scope.scrollInfo.noMoreTracks = false;
   
   $scope.doRefresh = function(){
     $scope.scrollInfo = {};
     $scope.scrollInfo.page = 0;
-    $scope.scrollInfo.limit = 5;
+    $scope.scrollInfo.limit = 3;
     $scope.scrollInfo.newTracks = [];
+    $scope.scrollInfo.noMoreTracks = false;
     $scope.loadMore();
     $scope.$broadcast('scroll.refreshComplete');
   };
 
   $scope.loadMore = function(){
-  
+    
     console.log($scope.scrollInfo.page);
+    if(WTF){
+      return false;
+    }
+    WTF = true;
 
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
         $log.log(fetchedTracks);
+        if(fetchedTracks.length < 1){
+          $scope.scrollInfo.noMoreTracks = true;
+        }
         fetchedTracks.forEach(function(track){
           // $log.log(track);
           $scope.scrollInfo.newTracks.push(track);
@@ -86,15 +93,16 @@ angular.module('starter.controllers', ['starter.services'])
         // $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
         $scope.scrollInfo.page++;
-        $scope.showInfinite = true;
+        // $scope.showInfinite = true;
+        WTF=false;
       }
     );
   };
 
-  $scope.loadMore();
+  // $scope.loadMore();
 
   $scope.moreDataCanBeLoaded = function(){
-    if($scope.scrollInfo.page > 5 ){
+    if($scope.scrollInfo.page > 5 || $scope.scrollInfo.noMoreTracks ){
       return false;
     }else{
       return true;
@@ -165,7 +173,7 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.trackData = fetchedTrack;
       $scope.pageTitle = $scope.trackData.title;
 
-      $scope.playlist1[0] = {src:$scope.trackData.url, type:$scope.trackData.type};
+      $scope.playlist1[0] = {src:$scope.trackData.stream_url, type:$scope.trackData.file_type};
       $ionicLoading.hide();
       // console.log($scope.playlist1);
     }
