@@ -2,21 +2,28 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
-    <div class="list list-inset">
-	  <label class="item item-input">
-	    <i class="icon ion-search placeholder-icon"></i>
-	    <input type="text" placeholder="Search">
-	  </label>
+  <ion-content class="has-header has-footer">
+
+    <div class="list">
+    <form>
+	  <div class="item item-input-inset">
+	    <label class="item-input-wrapper">
+	      <input ng-model="searchData.searchTerm" type="text" placeholder="Search">
+	    </label>
+	    <button class="button button-small" type="submit" ng-click="runSearch()">
+	      Search
+	    </button>
+	  </div>
+	</form>
 	</div>
 	<div class="list">
-	    <a ng-repeat="result in results" 
-           href="#/app/playlists/{{result.id}}"
+	    <a ng-repeat="result in searchData.results" 
+           href="#/app/track/{{result.id}}"
            class="item item-thumbnail-left">
 
-          <img ng-src="{{ result.image }}">
+          <img ng-src="{{ result.img_url }}">
           <h2>{{ result.title }}</h2>
-          <h4>{{ result.artist }}</h4>
+          <h4>{{ result.artist_name }}</h4>
         </a>
   	</div>
   </ion-content>

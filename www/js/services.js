@@ -119,9 +119,27 @@ angular.module('starter.services', [])
 
 	this.findTracks = function(searchData){
 
+		  // //simple finder
+		  // //outputs GET /api/v1/user?name=rob
+		  // $http.get('/api/v1/user',{params: {name: 'rob'}})
+		  
+		  // //this *should* work but doesn't (bug i think)
+		  // $http.get('/api/v1/user',{params: {name: 'rob', limit: 5}})
+		  
+		  // //workaround (how waterline works on backend is)
+		  // var query = { where: {name: 'rob'}, limit: 5};
+		  // $http.get('/api/v1/user',{params: query});
+
 		var deferred = $q.defer();
 
-		var query = { where: {title: '1400'} };
+		var query = { 
+			where: {
+				or:[
+					{ title: {'contains':searchData} }, 
+					{ artist_Name: {'contains':searchData} } 
+				]
+			}
+		};
 		
 		$http.get(urlBase + '/track', {params: query})
 		.success(function(data) {
@@ -131,7 +149,7 @@ angular.module('starter.services', [])
 	      $log.error(msg, code);
 	   });
 		return deferred.promise;
-	}
+	} //end findTracks
 
 	
 })

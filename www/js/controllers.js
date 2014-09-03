@@ -112,18 +112,26 @@ var WTF = false;
 
 .controller('SearchCtrl', function($scope, $log, trackInfoService) {
 
-  trackInfoService.findTracks('First').then(
-      function(results) {
-        $log.log(results);
-      }
-  );
+  $scope.searchData ={};
+
+  $scope.runSearch = function(){
+    // $log.log($scope.form.searchTerm);
+      trackInfoService.findTracks($scope.searchData.searchTerm).then(
+        function(results) {
+          $log.log(results);
+          $scope.searchData.results = results;
+        }
+      );
+  };
+
 
   $scope.results = [];
-  
+
   $scope.getItemHeight = function(item, index) {
     //Make evenly indexed items be 10px taller, for the sake of example
     return (index % 2) === 0 ? 50 : 60;
   };
+
 })
 
 .controller('FavoritesCtrl', function($scope) {
