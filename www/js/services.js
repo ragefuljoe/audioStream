@@ -4,6 +4,7 @@ angular.module('starter.services', [])
 	
 	var urlBase = 'http://localhost:1337/api/v1';
 
+
 	this.findNew = function(param) {
 
 		var deferred = $q.defer();

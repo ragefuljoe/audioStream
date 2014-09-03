@@ -70,3 +70,9 @@
 .time{
     text-align: right;
 }
+
+#searchText{
+    line-height: 1.4em;
+    font-size: 1.4em;
+    font-weight: 200;
+}

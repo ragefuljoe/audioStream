@@ -113,19 +113,25 @@ var WTF = false;
 .controller('SearchCtrl', function($scope, $log, trackInfoService) {
 
   $scope.searchData ={};
+  $scope.searchData.results = [];
 
+  $scope.clearInput = function(){
+    $scope.searchData.searchTerm = "";
+  };
   $scope.runSearch = function(){
     // $log.log($scope.form.searchTerm);
+    $scope.searchData.results = [];
       trackInfoService.findTracks($scope.searchData.searchTerm).then(
         function(results) {
           $log.log(results);
-          $scope.searchData.results = results;
+          if(results.length>0){
+            $scope.searchData.results = results;
+          }else{
+            $scope.searchData.results.push( {artist_name: "Please try another Term", title:"Nothing Found"} );
+          }
         }
       );
   };
-
-
-  $scope.results = [];
 
   $scope.getItemHeight = function(item, index) {
     //Make evenly indexed items be 10px taller, for the sake of example
