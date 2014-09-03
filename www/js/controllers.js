@@ -1,9 +1,24 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, categories) {
+.controller('AppCtrl', function($scope, $ionicModal, $log, $timeout, trackInfoService) {
   
-  $scope.categories = categories;
+  $scope.loadError = false;
+  $scope.categories = [];
 
+  $scope.reloadCategories = function(){
+      trackInfoService.getCategories().then(
+    function(data){
+      $scope.categories = data;
+      $scope.loadError = false;
+    },
+    function(errorPayload) {
+        $log.error('failure loading categories', errorPayload);
+        $scope.loadError = true;
+    });
+  };
+
+  $scope.reloadCategories();
+  
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -99,20 +114,29 @@ angular.module('starter.controllers', ['starter.services'])
   ];
 })
 
-.controller('CategoryCtrl', function($scope, $stateParams, $ionicLoading, trackInfoService) {
-
+.controller('CategoryCtrl', function($scope, $stateParams, $log, $ionicLoading, trackInfoService) {
+  $scope.loadError = false;
   $ionicLoading.show({
     template: '<i class="icon ion-loading-c"></i> Loading...'
   });
 
-  trackInfoService.getCategoryTracks($stateParams.category).then(
+  $scope.loadCatTracks = function(){
+    trackInfoService.getCategoryTracks($stateParams.category).then(
     function(categoryTracks){
       console.log(categoryTracks);
       $scope.pageTitle = categoryTracks.name;
       $scope.results = categoryTracks.tracks;
       $ionicLoading.hide();
-    }
-  );
+      $scope.loadError = false;
+    },
+    function(errorPayload) {
+        $log.error('failure loading category tracks', errorPayload);
+        $scope.loadError = true;
+        $ionicLoading.hide();
+    });
+  };
+  
+  $scope.loadCatTracks();
 
 })
 

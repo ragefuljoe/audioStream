@@ -20,7 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','m
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
 
   // $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?upload.wikimedia\.org/.+$')]);
 
@@ -30,12 +30,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','m
       url: "/app",
       abstract: true,
       templateUrl: "templates/menu.html",
-      controller: 'AppCtrl',
-      resolve:{
-        categories: function(trackInfoService){
-          return trackInfoService.getCategories();
-        }
-      }
+      controller: 'AppCtrl'
     })
 
     .state('app.home', {

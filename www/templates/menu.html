@@ -28,9 +28,22 @@
           Login
         </ion-item>
          <div class="item item-divider">
-          Categories
+          Categories 
         </div>
 
+        <div class="card" ng-show="loadError">
+          <div class="item item-text-wrap">
+            <p>Something happened.</p> <p>Try again later.</p>
+          </div>
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            
+            <a class="tab-item" ng-click="reloadCategories()">
+              <i class="icon ion-loop"></i>
+              Try Again
+            </a>
+           
+          </div>
+        </div>
         <ion-item ng-repeat="category in categories" nav-clear menu-close href="#/app/category/{{category.id}}">
           {{category.name}}
         </ion-item>

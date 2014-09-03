@@ -1,6 +1,6 @@
 angular.module('starter.services', [])
 
-.service('trackInfoService', function($q, $http, $timeout){
+.service('trackInfoService', function($q, $http, $log, $timeout){
 	
 	var urlBase = 'http://localhost:1337/api/v1'
 
@@ -26,7 +26,10 @@ angular.module('starter.services', [])
 		$http.get(urlBase + '/category/' + param)
 			.success(function(data) {
 				deferred.resolve(data);
-			});
+			}).error(function(msg, code) {
+	          deferred.reject(msg);
+	          $log.error(msg, code);
+	       });
 		return deferred.promise;
 	}
 
@@ -40,7 +43,10 @@ angular.module('starter.services', [])
 		$http.get(urlBase + '/category')
 			.success(function(data) {
 				deferred.resolve(data);
-			});
+			}).error(function(msg, code) {
+	          deferred.reject(msg);
+	          $log.error(msg, code);
+	       });
 
 		// $timeout(function() {
 
