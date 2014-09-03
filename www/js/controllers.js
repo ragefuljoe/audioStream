@@ -51,42 +51,58 @@ angular.module('starter.controllers', ['starter.services'])
     }, 1000);
   };
 
-
-
 })
 
-.controller('HomeCtrl', function($scope, $timeout, trackInfoService) {
-  
-  // this needs to be mocked up as rest call and moved into service
+.controller('HomeCtrl', function($scope, $timeout, $log, trackInfoService) {
+var WTF = false;
+  // $scope.showInfinite = false;
   $scope.scrollInfo = {};
   $scope.scrollInfo.page = 0;
-  $scope.scrollInfo.limit = 5;
+  $scope.scrollInfo.limit = 3;
   $scope.scrollInfo.newTracks = [];
+  $scope.scrollInfo.noMoreTracks = false;
   
   $scope.doRefresh = function(){
     $scope.scrollInfo = {};
     $scope.scrollInfo.page = 0;
-    $scope.scrollInfo.limit = 5;
+    $scope.scrollInfo.limit = 3;
     $scope.scrollInfo.newTracks = [];
+    $scope.scrollInfo.noMoreTracks = false;
     $scope.loadMore();
-
+    $scope.$broadcast('scroll.refreshComplete');
   };
 
   $scope.loadMore = function(){
+    
+    console.log($scope.scrollInfo.page);
+    if(WTF){
+      return false;
+    }
+    WTF = true;
+
     trackInfoService.findNew($scope.scrollInfo).then(
       function(fetchedTracks) {
+        $log.log(fetchedTracks);
+        if(fetchedTracks.length < 1){
+          $scope.scrollInfo.noMoreTracks = true;
+        }
         fetchedTracks.forEach(function(track){
+          // $log.log(track);
           $scope.scrollInfo.newTracks.push(track);
         });
-        $scope.scrollInfo.page++;
+        // $scope.$broadcast('scroll.refreshComplete');
         $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.$broadcast('scroll.refreshComplete');
+        $scope.scrollInfo.page++;
+        // $scope.showInfinite = true;
+        WTF=false;
       }
     );
   };
 
+  // $scope.loadMore();
+
   $scope.moreDataCanBeLoaded = function(){
-    if($scope.scrollInfo.page > 5){
+    if($scope.scrollInfo.page > 5 || $scope.scrollInfo.noMoreTracks ){
       return false;
     }else{
       return true;
@@ -94,16 +110,28 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('SearchCtrl', function($scope) {
-  $scope.results = [
-    { title: 'New Track 1', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 1 },
-    { title: 'New Track 2', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 2 },
-    { title: 'New Track 3', artist: 'Artist Name', image: 'http://placehold.it/75x75', id: 3 }
-  ];
+.controller('SearchCtrl', function($scope, $log, trackInfoService) {
+
+  $scope.searchData ={};
+
+  $scope.runSearch = function(){
+    // $log.log($scope.form.searchTerm);
+      trackInfoService.findTracks($scope.searchData.searchTerm).then(
+        function(results) {
+          $log.log(results);
+          $scope.searchData.results = results;
+        }
+      );
+  };
+
+
+  $scope.results = [];
+
   $scope.getItemHeight = function(item, index) {
     //Make evenly indexed items be 10px taller, for the sake of example
     return (index % 2) === 0 ? 50 : 60;
   };
+
 })
 
 .controller('FavoritesCtrl', function($scope) {
@@ -157,7 +185,7 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.trackData = fetchedTrack;
       $scope.pageTitle = $scope.trackData.title;
 
-      $scope.playlist1[0] = {src:$scope.trackData.url, type:$scope.trackData.type};
+      $scope.playlist1[0] = {src:$scope.trackData.stream_url, type:$scope.trackData.file_type};
       $ionicLoading.hide();
       // console.log($scope.playlist1);
     }
