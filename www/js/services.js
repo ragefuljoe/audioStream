@@ -137,7 +137,7 @@ angular.module('starter.services', [])
 			where: {
 				or:[
 					{ title: {'contains':searchData} }, 
-					{ artist_Name: {'contains':searchData} } 
+					{ artist_name: {'contains':searchData} } 
 				]
 			}
 		};

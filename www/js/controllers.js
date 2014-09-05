@@ -114,6 +114,7 @@ var WTF = false;
 
   $scope.searchData ={};
   $scope.searchData.results = [];
+  $scope.searchData.nothingFound = false;
 
   $scope.clearInput = function(){
     $scope.searchData.searchTerm = "";
@@ -125,9 +126,10 @@ var WTF = false;
         function(results) {
           $log.log(results);
           if(results.length>0){
+            $scope.searchData.nothingFound = false;
             $scope.searchData.results = results;
           }else{
-            $scope.searchData.results.push( {artist_name: "Please try another Term", title:"Nothing Found"} );
+            $scope.searchData.nothingFound =true;
           }
         }
       );
