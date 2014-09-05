@@ -42,7 +42,7 @@
 			    <i class="icon ion-play" ng-click="currTrack.playerControl()" ng-hide="currTrack.isPlaying"></i>
 			</div>
 	  		<div class="col">
-	  			<i class="icon ion-heart" ng-click="currTrack.addFavorite()"></i>
+	  			<i class="icon ion-heart" ng-class="{red:currTrack.fave>-1}" ng-click="currTrack.toggleFave()"></i>
 	  		</div>
 		</div>
 	  </div>

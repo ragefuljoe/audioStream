@@ -143,12 +143,28 @@ var WTF = false;
 
 })
 
-.controller('FavoritesCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Fave1', id: 1 },
-    { title: 'Fave2', id: 2 },
-    { title: 'Fave3', id: 3 }
-  ];
+.controller('FavoritesCtrl', function($scope, $log, $ionicLoading, trackInfoService) {
+
+    $ionicLoading.show({
+      template: '<i class="icon ion-loading-c"></i> Loading...'
+    });
+    $scope.loadFavorites = function(){
+      trackInfoService.getFavorites('540a1aa998a0b60000337bcb').then(
+      function(faveTracks){
+        console.log(faveTracks);
+        
+        $scope.results = faveTracks;
+        $ionicLoading.hide();
+        $scope.loadError = false;
+      },
+      function(errorPayload) {
+          $log.error('failure loading favorite tracks', errorPayload);
+          $scope.loadError = true;
+          $ionicLoading.hide();
+      });
+    };
+    $scope.loadFavorites();
+
 })
 
 .controller('CategoryCtrl', function($scope, $stateParams, $log, $ionicLoading, trackInfoService) {
@@ -177,7 +193,7 @@ var WTF = false;
 
 })
 
-.controller('PlayerCtrl', function(  $scope, $stateParams, $ionicLoading, trackInfoService) {
+.controller('PlayerCtrl', function(  $scope, $stateParams, $log, $ionicLoading, trackInfoService) {
     
   $ionicLoading.show({
     template: '<i class="icon ion-loading-c"></i> Loading...'
@@ -185,7 +201,7 @@ var WTF = false;
 
   $scope.currTrack = {};
   $scope.currTrack.isPlaying = false;
-
+  $scope.currTrack.fave = -1;
     //call service to get track data from id
   trackInfoService.getTrackData($stateParams.trackid).then(
     function(fetchedTrack){
@@ -197,6 +213,18 @@ var WTF = false;
       $scope.playlist1[0] = {src:$scope.trackData.stream_url, type:$scope.trackData.file_type};
       $ionicLoading.hide();
       // console.log($scope.playlist1);
+
+         trackInfoService.getFavorites('540a1aa998a0b60000337bcb').then(
+          function(faves){
+
+            $log.log(faves);
+            $scope.currTrack.fave = _.findIndex(faves, function(track){
+              return track.id == $scope.trackData.id;
+            });
+       
+            $log.log("fave search: " + $scope.currTrack.fave);
+          }
+        )
     }
   );
   
@@ -224,12 +252,23 @@ var WTF = false;
     });
   }
 
-  $scope.currTrack.addFavorite = function(){
-    console.log("add favorite " + $scope.trackData.id);
+
+
+  $scope.currTrack.toggleFave = function(){
+
+    console.log("toggle favorite " + $scope.trackData.id);
+    
     var param = {};
     param.userId = '540a1aa998a0b60000337bcb';
     param.trackId = $scope.trackData.id;
-    trackInfoService.addFavorite(param);
+    if($scope.currTrack.fave < 0){
+      trackInfoService.addFavorite(param).then(
+        function(d){
+          $scope.currTrack.fave=1;
+        });
+    }else{
+      trackInfoService.removeFavorite(param).then(function(){$scope.currTrack.fave=-1;});
+    }
   }
 
   
@@ -237,16 +276,4 @@ var WTF = false;
 
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+;

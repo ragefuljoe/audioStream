@@ -5,7 +5,9 @@
 .tab-item {
     color:white;
 }*/
-
+.red{
+    color:#b80000;
+}
 ::selection {
   background: #57c727; /* WebKit/Blink Browsers */
   color:white;
