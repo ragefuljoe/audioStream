@@ -152,6 +152,21 @@ angular.module('starter.services', [])
 		return deferred.promise;
 	} //end findTracks
 
+
+
+	this.addFavorite = function(params){
+		var deferred = $q.defer();
+
+	
+		$http.post(urlBase + '/track/' + params.trackId + '/favoritedby/' + params.userId)
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+		return deferred.promise;
+	}
 	
 })
 

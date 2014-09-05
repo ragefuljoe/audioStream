@@ -225,7 +225,11 @@ var WTF = false;
   }
 
   $scope.currTrack.addFavorite = function(){
-    console.log("add favorite");
+    console.log("add favorite " + $scope.trackData.id);
+    var param = {};
+    param.userId = '540a1aa998a0b60000337bcb';
+    param.trackId = $scope.trackData.id;
+    trackInfoService.addFavorite(param);
   }
 
   
