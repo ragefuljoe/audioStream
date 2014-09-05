@@ -152,27 +152,51 @@ angular.module('starter.services', [])
 		return deferred.promise;
 	} //end findTracks
 
+
+
+	this.addFavorite = function(params){
+		var deferred = $q.defer();
+
+	
+		$http.post(urlBase + '/track/' + params.trackId + '/favoritedby/' + params.userId)
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+		return deferred.promise;
+	}
+
+	this.removeFavorite = function(params){
+		var deferred = $q.defer();
+
+	
+		$http.delete(urlBase + '/track/' + params.trackId + '/favoritedby/' + params.userId)
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+		return deferred.promise;
+	}	
+
+	this.getFavorites = function(userId){
+		var deferred = $q.defer();
+
+	
+		$http.get(urlBase + '/user/' + userId + '/favorites')
+		.success(function(data) {
+			deferred.resolve(data);
+		}).error(function(msg, code) {
+	      deferred.reject(msg);
+	      $log.error(msg, code);
+	   });
+		return deferred.promise;		
+	}
 	
 })
 
 
 ;
-
-
-// $http reference
-// angular.module('myApp.services', []).
-//     service('Activities', function($http, $q) {
-//         this.get = function(from, to){
-//             var deferred = $q.defer();
-//             var url = 'user/activities?from='+from+'&to='+to;
-//             $http.get(url).success(function(data, status) {
-//                 // Some extra manipulation on data if you want...
-//                 deferred.resolve(data);
-//             }).error(function(data, status) {
-//                 deferred.reject(data);
-//             });
-
-//             return deferred.promise;
-//         }
-//     }
-// );
