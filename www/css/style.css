@@ -5,6 +5,12 @@
 .tab-item {
     color:white;
 }*/
+
+::selection {
+  background: #57c727; /* WebKit/Blink Browsers */
+  color:white;
+}
+
 .newTrackTitle{
 	position: absolute;
 	bottom:55px;
